@@ -283,7 +283,7 @@ SESSION_CONFIGS = [
     # },
     {
         'name': 'stag_hunt',
-        'display_name': "Stag Hunt",
+        'display_name': "Stag Hunt for Maxi",
         'num_demo_participants': 2,
         'app_sequence': ['stag_hunt'],
     },
