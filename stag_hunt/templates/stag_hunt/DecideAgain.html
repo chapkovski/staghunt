@@ -1,0 +1,57 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block scripts %}
+
+
+
+
+
+
+<script>
+    var $Hare = $('.toshowlater');
+    $(document).ready(function() {
+
+        var timer = setInterval( showDiv, 8000);
+         function showDiv() {
+            $Hare.show();
+             setTimeout(function() {
+                $Hare.hide('slow').fadeOut();
+            }, 2500);
+  }
+    });
+
+    function submit_fun(){
+        $Hare.hide('slow');
+
+    }
+
+</script>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .toshowlater{
+        /*background-color:blue;*/
+        display:none;
+    }
+</style>
+
+{% endblock %}
+{% block title %}
+    Please wait...
+{% endblock %}
+
+{% block content %}
+<div class="toshowlater">
+    {#% formfield player.decision with label='What will you hunt?' %#}
+    <strong>Are you sure you want to stick to your Stag decision or you want to change your decision to Hare?</strong>
+       <input class="btn btn-primary btn-large btn-primary next-button btn-success" type="button" value="stay with Stag"
+               onclick="return submit_fun();" onsubmit="return submit_fun();" >
+
+       <input class="btn btn-primary btn-large btn-primary next-button btn-warning" type="submit" value="go for Hare"
+               onclick="return submit_fun();" onsubmit="return submit_fun();" >
+</div>
+    {#% include 'stag_hunt/Instructions.html' %#}
+
+{% endblock %}
