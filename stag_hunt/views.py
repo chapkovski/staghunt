@@ -67,7 +67,7 @@ class waitforother(WaitPage):
 
 
 class DecideAgain(Page):
-    timeout_seconds = 600
+    timeout_seconds = 90
     def is_displayed(self):
         if self.player.decision == 'Stag' and self.player.other_player().decision == 'Stag':
             return True
