@@ -17,7 +17,8 @@ class Introduction(Page):
 
     def is_displayed(self):
         return self.subsession.round_number == 1
-
+class Priming(Page):
+    pass
 
 class Question(Page):
 
@@ -115,6 +116,7 @@ page_sequence = [
             # Introduction,
             # Question,
             # Feedback,
+            Priming,
             Decide,
             waitforother,
             DecideAgain,
