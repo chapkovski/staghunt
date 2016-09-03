@@ -13,61 +13,8 @@ def vars_for_all_templates(self):
             'round_number': self.subsession.round_number}
 
 
-class Introduction(Page):
 
-    def is_displayed(self):
-        return self.subsession.round_number == 1
-class Priming(Page):
-    pass
-
-class Question(Page):
-
-    template_name = 'stag_hunt/Question.html'
-
-    def is_displayed(self):
-        return self.subsession.round_number == 1
-
-    form_model = models.Player
-    form_fields = [
-        'training_question_1_my_payoff','training_question_1_other_payoff'
-    ]
-
-    def vars_for_template(self):
-        return {'num_q': 1}
-
-
-class Feedback(Page):
-
-    def vars_for_template(self):
-        return {
-            'num_q': 1,
-        }
-
-
-class Decide(Page):
-
-    def is_displayed(self):
-        return True
-
-    form_model = models.Player
-    form_fields = ['decision']
-
-    def vars_for_template(self):
-        return {'player_index': self.player.id_in_group,
-                'stag_stag': Constants.stag_stag_amount,
-                'stag_hare': Constants.stag_hare_amount,
-                'hare_stag': Constants.hare_stag_amount,
-                'hare_hare': Constants.hare_hare_amount}
-
-class waitforother(WaitPage):
-
-    def after_all_players_arrive(self):
-        pass
-
-    body_text = "Please wait while another participant takes the decision..."
-
-
-class DecideAgain(Page):
+class Hunting(Page):
     timeout_seconds = 90
     def is_displayed(self):
         if self.player.decision == 'Stag' and self.player.other_player().decision == 'Stag':
@@ -92,33 +39,45 @@ class DecideAgain(Page):
         else:
             self.player.decision = 'Hare'
 
-class ResultsWaitPage(WaitPage):
-
-    def after_all_players_arrive(self):
-        for p in self.group.get_players():
-            p.set_payoff()
-
-    body_text = "Waiting for the other participant."
 
 
-class Results(Page):
-
-    def is_displayed(self):
-        return True
-
-    def vars_for_template(self):
-
-        return {
-             'total_payoff': self.player.payoff + Constants.fixed_pay}
-
+class Welcome(Page):
+    pass
+class PreselectionQuestionnaire(Page):
+    pass
+class ThankYou(Page):
+    pass
+class Priming(Page):
+    pass
+class Instructions1(Page):
+    pass
+class Instructions2(Page):
+    pass
+class Waiting1(Page):
+    pass
+class PartnerJoined(Page):
+    pass
+class QuestionnaireAnnouncement(Page):
+    pass
+class PostQuestionnaire1(Page):
+    pass
+class PostQuestionnaire2(Page):
+    pass
+class FinalPage(Page):
+    pass
 
 page_sequence = [
-            # Introduction,
-            # Question,
-            # Feedback,
+            Welcome,
+            PreselectionQuestionnaire,
+            ThankYou,
             Priming,
-            Decide,
-            waitforother,
-            DecideAgain,
-            ResultsWaitPage,
-            Results]
+            Instructions1,
+            Instructions2,
+            Waiting1,
+            PartnerJoined,
+            Hunting,
+            QuestionnaireAnnouncement,
+            PostQuestionnaire1,
+            PostQuestionnaire2,
+            FinalPage,
+            ]

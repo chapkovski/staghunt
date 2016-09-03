@@ -1,0 +1,26 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+   Task 2: Instructions
+{% endblock %}
+
+{% block content %}
+
+
+Task 2: Instructions
+
+
+While waiting, small animals will pass by you and your partner from time to time. You can catch a small animal by yourself, and will be paid the $0.5 immediately.
+
+However, once you go for a small animal, the trap for the big animal will no longer work, and the hunt is over for both of you. Therefore, your partner will earn nothing ($0). Conversely, if your partner decides to catch the small animal while you decide to wait for the big one, the hunt ends and you will not earn any money ($0). Should you and your partner both happen to go for the small animal simultaneously, the hunt also ends and you will both receive $0.5.
+
+You will be able to catch the big animal only if both you and your partner repeatedly decide to wait with the trap until the big animal comes by. In this case, you will leave the hunt with $3 each.
+
+All the options are summed up in the table below, which will stay visible while the task is ongoing.
+
+
+The hunting task will begin once you press ‘next’.
+    {% next_button %}
+
+{% endblock %}

@@ -2,14 +2,12 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Decide
+    Introduction
 {% endblock %}
 
 {% block content %}
+Please wait until the other MTurker has joined the hunting task….
 
-    {% formfield player.decision with label='What will you hunt?' %}
     {% next_button %}
-
-    {% include 'stag_hunt/Instructions.html' %}
 
 {% endblock %}

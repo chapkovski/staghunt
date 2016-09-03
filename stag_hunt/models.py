@@ -34,6 +34,7 @@ bibliography = (
 
 
 
+
 class Constants(BaseConstants):
     name_in_url = 'stag_hunt'
     players_per_group = 2
@@ -68,7 +69,8 @@ class Player(BasePlayer):
     decision = models.CharField(
         choices=['Stag', 'Hare'],
         doc="""The player's choice""",
-        widget=widgets.RadioSelect()
+        widget=widgets.RadioSelect(),
+
     )
 
     def is_training_question_1_my_payoff_correct(self):

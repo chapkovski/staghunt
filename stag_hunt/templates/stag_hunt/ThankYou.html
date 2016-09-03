@@ -1,0 +1,21 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+Thank you for taking part in this pre-test. Your account has been credited with $0.50.’
+
+
+
+
+——— if eligible ———
+
+Thank you for taking the pre-test. We will now move on to the second part of the study, where you will be asked to respond to a couple of decision-making situations and will be asked a few more questions.
+
+    {% next_button %}
+
+
+{% endblock %}

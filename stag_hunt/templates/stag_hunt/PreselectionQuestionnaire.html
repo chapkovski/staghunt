@@ -1,0 +1,40 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Understanding Question {{ num_q }} of {{ total_q }}
+{% endblock %}
+
+{% block content %}
+
+  Questionnaire
+
+1. How old are you?
+[dropdown] years
+
+2. Please indicate your sex
+[m] [f]
+
+3. How many years have you spent in full-time education (school, college, university)?
+[dropdown] years
+
+4. What is currently your annual household income before tax? [dropdown]
+[currently have no income] [0-10,000$/year] [10,000-20,000$/year] [20,000-30,000$/year] [30,000-40,000$/year] [40,000-60,000$/year] [60,000-100,000$/year] [over 100,000$/year]
+
+5. During the last month, did you experience any difficulties in paying your regular bills?
+[yes] [no]
+
+6. Which categories describe you best? Select all boxes that may apply. [dropdown]
+[White] [Hispanic] [Black or African American] [Asian] [American Indian or Alaska Native] [Middle Eastern or North African] [Native Hawaiian or Other Pacific Islander] [Some other race, ethnicity, or origin]
+
+7. Do you have children? [no] [yes, I have [dropdown] children]
+
+8. Which state do you currently live in? [freetext]
+
+
+Please click [Next] when you have answered to tall the questions.
+    {% next_button %}
+
+
+
+{% endblock %}
