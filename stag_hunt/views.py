@@ -6,21 +6,22 @@ from otree.common import Currency as c, currency_range
 from .models import Constants
 
 
+def preselection(player):
+    if player.poverty!=None:
+        return player.poverty
+    else:
+        return True
+
 def vars_for_all_templates(self):
 
-    return {'total_q': 1,
-            'total_rounds': Constants.num_rounds,
-            'round_number': self.subsession.round_number}
+    return {'eligible': preselection(self.player)}
 
 
 
 class Hunting(Page):
-    timeout_seconds = 90
+    timeout_seconds = 15
     def is_displayed(self):
-        if self.player.decision == 'Stag' and self.player.other_player().decision == 'Stag':
-            return True
-        else:
-            return False
+        return preselection(self.player)
 
     # form_model = models.Player
     # form_fields = ['decision']
@@ -42,31 +43,97 @@ class Hunting(Page):
 
 
 class Welcome(Page):
-    pass
+    def vars_for_template(self):
+        return {'nq': 10,
+                'lb': c(1),
+                'ub': c(2),
+               }
 class PreselectionQuestionnaire(Page):
-    pass
+    form_model=models.Player
+    def get_form_fields(self):
+        return ["age",
+                "gender",
+                "education",
+                "income",
+                "poverty",
+                "race",
+                "childen",
+                "state",
+                ]
+
 class ThankYou(Page):
     pass
 class Priming(Page):
-    pass
-class Instructions1(Page):
-    pass
-class Instructions2(Page):
-    pass
-class Waiting1(Page):
-    pass
-class PartnerJoined(Page):
-    pass
-class QuestionnaireAnnouncement(Page):
-    pass
-class PostQuestionnaire1(Page):
-    pass
-class PostQuestionnaire2(Page):
-    pass
-class FinalPage(Page):
-    pass
+    def is_displayed(self):
+        return preselection(self.player)
 
-page_sequence = [
+    def vars_for_template(self):
+        if self.player.treatment:
+            tr_text=["$2.500","$230","$2.800"]
+        else:
+            tr_text=["$150","$15","$180"]
+        return {'tr_text': tr_text}
+
+
+class Instructions1(Page):
+    def is_displayed(self):
+        return preselection(self.player)
+class Instructions2(Page):
+    def is_displayed(self):
+        return preselection(self.player)
+class Waiting1(Page):
+    def is_displayed(self):
+        return preselection(self.player)
+class PartnerJoined(Page):
+    def is_displayed(self):
+        return preselection(self.player)
+class QuestionnaireAnnouncement(Page):
+    def is_displayed(self):
+        return preselection(self.player)
+    def vars_for_template(self):
+
+        return {'nq': 5,
+                'bonus_earnings':c(2),
+                'stag':True if self.player.decision=="Stag" else False}
+class PostQuestionnaire1(Page):
+    form_model = models.Player
+    def get_form_fields(self):
+        return ["remember_sum",
+                "stress_sum",
+                "touch",
+                "loan",
+                "friends",
+                ]
+
+    def vars_for_template(self):
+        return {'nq_remaining':2,}
+
+    def is_displayed(self):
+        return preselection(self.player)
+
+class PostQuestionnaire2(Page):
+    form_model = models.Player
+    def get_form_fields(self):
+        return [
+                "risks",
+                "paid_tomorrow",
+                ]
+    def is_displayed(self):
+        return preselection(self.player)
+class FinalPage(Page):
+    def is_displayed(self):
+        return preselection(self.player)
+    form_model = models.Player
+    def get_form_fields(self):
+        return [
+                "while_waiting",
+                "understand",
+                "letknow",
+                ]
+
+
+page_sequence = [Hunting,
+                 QuestionnaireAnnouncement,
             Welcome,
             PreselectionQuestionnaire,
             ThankYou,

@@ -58,7 +58,7 @@ AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+USE_POINTS = False
 
 
 # e.g. en, de, fr, it, ja, zh-hans
@@ -284,7 +284,7 @@ SESSION_CONFIGS = [
     {
         'name': 'stag_hunt',
         'display_name': "Stag Hunt for Maxi",
-        'num_demo_participants': 2,
+        'num_demo_participants': 1,
         'app_sequence': ['stag_hunt'],
     },
     # {

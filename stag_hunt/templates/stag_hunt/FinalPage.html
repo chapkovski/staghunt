@@ -12,16 +12,10 @@ Thank you for taking part in this study. Your account will be credited with $xxx
 
 Please help us improve the study by briefly answering to the following questions:
 
-In Task 2, what did you do while waiting?
-[I did something else] [I was just waiting]
+  {% for field in form %}
+        {% formfield field %}
+    {% endfor %}
 
-Were there any parts of this study that you found hard to understand?
-
-[free text]
-
-Is there anything else that you want to let us know?
-
-[free text]
     {% next_button %}
 
 {% endblock %}

@@ -7,15 +7,8 @@
 
 {% block content %}
 
-
-How much do you like to take risks?
-
-[dropdown] [I like to take risks] [I don’t mind taking risks] [I am careful not to take too many risks] [I do not like to take risks]
-
-
-
-Imagine you could choose to be paid 15$ today, or you could choose to be paid 30$ in two weeks. Which of the following describes best what you feel:
-
-[dropdown] [I much prefer to be paid 15$ today] [I slightly prefer to be paid 15$ today] [I am indifferent whether I am paid 15$ today, or 30$ in two weeks] [I slightly prefer to be paid 30$ in two weeks] [I much prefer to be paid 30$ in two weeks]
-
+    {% for field in form %}
+        {% formfield field %}
+    {% endfor %}
+{% next_button %}
 {% endblock %}

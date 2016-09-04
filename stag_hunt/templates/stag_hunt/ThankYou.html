@@ -2,19 +2,22 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Results
+    Thank you!
 {% endblock %}
 
 {% block content %}
-Thank you for taking part in this pre-test. Your account has been credited with $0.50.’
 
+{%if eligible %}
+    <div class="instructions well well-lg" style="padding-top:3px; padding-bottom:5px; margin-top:20px;">
 
-
-
-——— if eligible ———
-
-Thank you for taking the pre-test. We will now move on to the second part of the study, where you will be asked to respond to a couple of decision-making situations and will be asked a few more questions.
-
+<p>Thank you for taking the pre-test.</p> 
+<p>We will now move on to the second part of the study, where you will be asked to 
+        respond to a couple of decision-making situations and will be asked a few more questions.
+</p>{% else %}
+<p>Thank you for taking part in this pre-test.</p> 
+        <p>You will be credited with  {{ player.participant.session.participation_fee }} at the soonest possible time</p>
+{% endif %}
+        </div>
     {% next_button %}
 
 

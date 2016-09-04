@@ -2,26 +2,46 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Priming happens somewhere here...
+
+Task 1
 {% endblock %}
 
 {% block content %}
 
 
-Task 1
 
-Imagine that you are having troubles with your teeth. Your dentist recommends a 2,500$ (150$) treatment. Unfortunately, your insurance will only cover 10% of this cost. You now need to decide the following:
-(1) Pay the full amount in cash. Would this require spending your savings? How would you go about it?
-(2) Take out a loan, which you can pay back in monthly instalments. A typical such loan may require monthly payments of roughly $230 ($15) a month for 12 months, which would amount to about $2800 ($180) total.
-(3) Take a chance, forego the treatment, and hope that troubles with your teeth will disappear. Of course, this leaves open the possibility of conditions worsening, or even greater expenses in the long run.
-How would you go about making this decision? Would it be an easy or a difficult decision for you to make?
+<p>Imagine that you are having troubles with your teeth.</p>
+<p>Your dentist recommends a {{tr_text.0}} treatment.</p>
+<p>Unfortunately, your insurance will only cover 10% of this cost.</p>
+<p>You now need to decide the following:</p>
+<ol>
+    <li>
+        Pay the full amount in cash. Would this require spending your savings? How would you go about it?
+    </li>
+    <li>
+        Take out a loan, which you can pay back in monthly instalments.
+        A typical such loan may require monthly payments of roughly {{tr_text.1}} a month for 12 months,
+        which would amount to about {{tr_text.2}} total.
+    </li>
+    <li>
+        Take a chance, forego the treatment, and hope that troubles with your teeth will disappear.
+        Of course, this leaves open the possibility of conditions worsening, or even greater expenses in the long run.
+    </li>
 
-We will ask you at a later point to provide short answers to these questions.
+</ol>
+<br>
+<ul>
+    <li>How would you go about making this decision?</li>
+    <li>Would it be an easy or a difficult decision for you to make?</li>
+</ul>
+
+
+<p>We will ask you at a later point to provide short answers to these questions.</p>
 
 
 
 
-Please wait before proceeding to the next slide.
+<p>Please wait before proceeding to the next slide.</p>
 
     {% next_button %}
 

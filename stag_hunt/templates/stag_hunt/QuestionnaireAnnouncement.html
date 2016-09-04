@@ -7,9 +7,13 @@
 
 {% block content %}
 
-   You have successfully caught the big animal. Your account will be credited with $3.
-The task will continue with xxx more questions, answering to which will earn you $xxx’.
+{%  if not stag %}
+<p>You have successfully caught the small animal. Your account will be credited with {{Constants.hare_stag_amount}}.</p>
 
+{%else%}
+<p>You have successfully caught the big animal. Your account will be credited with {{Constants.stag_stag_amount}}.</p>
+{%endif%}
+<p>The task will continue with {{nq}} more questions, answering to which will earn you {{bonus_earnings}}.</p>
     {% next_button %}
 
 {% endblock %}
