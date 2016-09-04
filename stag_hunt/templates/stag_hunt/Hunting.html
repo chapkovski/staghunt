@@ -2,16 +2,29 @@
 {% load staticfiles otree_tags %}
 
 {% block scripts %}
+<!--DONT FORGET TO DELETE LATER BELOW-->
+    <script src="{% static 'stag_hunt/flipclock/flipclock.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
 
-
-
-
-
+            var clock = $('#timer').FlipClock({{time_left}}, {
+                countdown: true,
+                clockFace: 'MinuteCounter',
+                callbacks: {
+                    stop: function(){
+                        $("form#form").submit();
+                    }
+                }
+            });
+        });
+    </script>
+<!--DONT FORGET TO DELETE LATER ABOVE-->
 
 <script>
+
     var $Hare = $('.toshowlater');
     $(document).ready(function() {
-
+        $('div#clock').html("hellow");
         var timer = setInterval( showDiv, 8000);
          function showDiv() {
             $Hare.show();
@@ -21,15 +34,28 @@
   }
     });
 
-    function submit_fun(){
+    function submit_fun(input){
+
+        $('#decision_field').val(input);
+
         $Hare.hide('slow');
 
     }
+
 
 </script>
 {% endblock %}
 
 {% block styles %}
+<!--DONT FORGET TO DELETE LATER BELOW-->
+<link href="{% static 'stag_hunt/flipclock/flipclock.css' %}" rel="stylesheet">
+<style>
+    span.flip-clock-label{
+        /*display: none;*/
+    }
+</style>
+<!--DONT FORGET TO DELETE LATER ABOVE-->
+
 <style>
     .toshowlater{
         /*background-color:blue;*/
@@ -43,15 +69,31 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="row">
+    <div class="pull-right">
+        <div id="timer"></div>
+    </div>
+</div>
+
+<form action="Submit"><input type="hidden" name="decision"
+    value="Stag" id="decision_field"/>
 <div class="toshowlater">
     {#% formfield player.decision with label='What will you hunt?' %#}
-    <strong>Are you sure you want to stick to your Stag decision or you want to change your decision to Hare?</strong><br>
-       <input class="btn btn-primary btn-large btn-primary next-button btn-success" type="button" value="stay with Stag"
-               onclick="return submit_fun();" onsubmit="return submit_fun();" >
+    <strong>
+       A small animal is coming your way. Do you want to wait for the big animal
+        to appear (worth {{Constants.stag_stag_amount}} for each you and your partner),
+        or catch the small animal (worth {{Constants.stag_hare_amount}})?
+    </strong><br>
+       <input class="btn btn-primary btn-large btn-primary next-button btn-success" type="button"
+              value="Wait for the big animal"
+               onclick="return submit_fun('Stag');" >
 
-       <input class="btn btn-primary btn-large btn-primary next-button btn-warning" type="submit" value="go for Hare"
-               onclick="return submit_fun();" onsubmit="return submit_fun();" >
+       <input class="btn btn-primary btn-large btn-primary next-button btn-warning" type="submit"
+              value="Catch the small animal"
+               onclick="return submit_fun('Hare');" >
 </div>
+    </form>
     {#% include 'stag_hunt/Instructions.html' %#}
 
 {% endblock %}

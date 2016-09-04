@@ -4,7 +4,7 @@ from . import models
 from ._builtin import Page, WaitPage
 from otree.common import Currency as c, currency_range
 from .models import Constants
-
+from django.utils import timezone
 
 def preselection(player):
     if player.poverty!=None:
@@ -19,12 +19,13 @@ def vars_for_all_templates(self):
 
 
 class Hunting(Page):
-    timeout_seconds = 15
-    def is_displayed(self):
-        return preselection(self.player)
+    form_model=models.Player
+    def get_form_fields(self):
+        return ["decision"]
 
-    # form_model = models.Player
-    # form_fields = ['decision']
+    def is_displayed(self):
+        return preselection(self.player) #self.player.hunting_time_left() and
+
 
 
     def vars_for_template(self):
@@ -32,22 +33,22 @@ class Hunting(Page):
                 'stag_stag': Constants.stag_stag_amount,
                 'stag_hare': Constants.stag_hare_amount,
                 'hare_stag': Constants.hare_stag_amount,
-                'hare_hare': Constants.hare_hare_amount}
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.decision = 'Stag'
-        else:
-            self.player.decision = 'Hare'
-
-
+                'hare_hare': Constants.hare_hare_amount,
+                "time_left": Constants.hunting_time,
+                }
 
 class Welcome(Page):
     def vars_for_template(self):
         return {'nq': 10,
                 'lb': c(1),
                 'ub': c(2),
+                # "time_limit": int(Constants.round_1_seconds / 60),
                }
+    def before_next_page(self):
+        self.player.hunting_start_time = timezone.now()
+
+
+
 class PreselectionQuestionnaire(Page):
     form_model=models.Player
     def get_form_fields(self):
@@ -72,7 +73,7 @@ class Priming(Page):
             tr_text=["$2.500","$230","$2.800"]
         else:
             tr_text=["$150","$15","$180"]
-        return {'tr_text': tr_text}
+        return {'tr_text': tr_text, "time_left": Constants.priming_time,}
 
 
 class Instructions1(Page):
@@ -132,9 +133,12 @@ class FinalPage(Page):
                 ]
 
 
-page_sequence = [Hunting,
+page_sequence = [
+                Priming,
+                Welcome,
+                  Hunting,
                  QuestionnaireAnnouncement,
-            Welcome,
+
             PreselectionQuestionnaire,
             ThankYou,
             Priming,

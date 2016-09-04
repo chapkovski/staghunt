@@ -1,13 +1,47 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+{% block styles %}
+<!--DONT FORGET TO DELETE LATER BELOW-->
+<link href="{% static 'stag_hunt/flipclock/flipclock.css' %}" rel="stylesheet">
+<style>
+    span.flip-clock-label{
+        /*display: none;*/
+    }
+</style>
+<!--DONT FORGET TO DELETE LATER ABOVE-->
+{%endblock%}
+{% block scripts %}
+<!--DONT FORGET TO DELETE LATER BELOW-->
+    <script src="{% static 'stag_hunt/flipclock/flipclock.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+
+            var clock = $('#timer').FlipClock({{time_left}}, {
+                countdown: true,
+                clockFace: 'MinuteCounter',
+                callbacks: {
+                    stop: function(){
+                        $("form#form").submit();
+                    }
+                }
+            });
+        });
+    </script>
+<!--DONT FORGET TO DELETE LATER ABOVE-->
+{%endblock%}
+
 {% block title %}
 
 Task 1
 {% endblock %}
 
 {% block content %}
-
+<div class="row">
+    <div class="pull-right">
+        <div id="timer"></div>
+    </div>
+</div>
 
 
 <p>Imagine that you are having troubles with your teeth.</p>

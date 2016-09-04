@@ -9,8 +9,20 @@ import random
 from otree.common import Currency as c, currency_range
 # </standard imports>
 import django.forms.extras.widgets
-from django import forms
-# from django.models import JSONField
+
+#to delete block below
+from jsonfield import JSONField
+from otree.db import models
+import otree.models
+import otree.constants
+from otree import widgets
+from otree import forms
+from otree.common import Currency as c, currency_range
+import random
+from django.core.validators import MaxLengthValidator
+#end of deleting block
+
+
 doc = """
 This is a 2-player 2-strategy coordination game. The original story was from
 <a href="https://en.wikipedia.org/wiki/Jean-Jacques_Rousseau" target="_blank">
@@ -36,6 +48,9 @@ from otree.db import models
 
 
 class Constants(BaseConstants):
+    #dont' forget to delete below
+    priming_time, hunting_time = 15,15
+    #dont forget to delete above
     name_in_url = 'stag_hunt'
     players_per_group = None
     num_rounds = 1
@@ -61,8 +76,22 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     pass
+#for time experimenting
+from django.utils import timezone
+#dont forget to delete above later
 
 class Player(BasePlayer):
+
+    #########experimenting with own timer
+    hunting_start_time = models.DateTimeField()
+
+    def hunting_time_left(self):
+        start = self.hunting_start_time
+        now = timezone.now()
+        time_left = Constants.round_1_seconds - (now - start).seconds
+        return time_left if time_left > 0 else 0
+    #end of exper with timer
+
     treatment=models.BooleanField()
     age = models.IntegerField(
         verbose_name="How old are you?",
