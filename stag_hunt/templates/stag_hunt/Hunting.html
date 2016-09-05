@@ -24,21 +24,20 @@
 
     var $Hare = $('.toshowlater');
     $(document).ready(function() {
-        $('div#clock').html("hellow");
-        var timer = setInterval( showDiv, 3000);
-         function showDiv() {
+
+        setTimeout(function(){
             $Hare.show();
-//             setTimeout(function() {
-//                $Hare.hide('slow').fadeOut();
-//            }, 3000);
-            }
+        }, {{Constants.frequency}});
+
     });
 
     function submit_fun(input){
-
         $('#decision_field').val(input);
-
         $Hare.hide('slow');
+          setTimeout(function(){
+            $Hare.show();
+        }, {{Constants.frequency}});
+
 
     }
 
@@ -94,6 +93,6 @@
                onclick="return submit_fun('Hare');" >
 </div>
     </form>
-    {#% include 'stag_hunt/Instructions.html' %#}
+        {% include 'stag_hunt/table.html' %}
 
 {% endblock %}

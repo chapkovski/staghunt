@@ -24,17 +24,19 @@ class Hunting(Page):
         return ["decision"]
 
     def is_displayed(self):
-        return preselection(self.player) #self.player.hunting_time_left() and
-
+        # self.player.hunting_start_time = timezone.now()
+        return preselection(self.player) and self.player.hunting_time_left()
+    #
 
 
     def vars_for_template(self):
+
         return {'player_index': self.player.id_in_group,
                 'stag_stag': Constants.stag_stag_amount,
                 'stag_hare': Constants.stag_hare_amount,
                 'hare_stag': Constants.hare_stag_amount,
                 'hare_hare': Constants.hare_hare_amount,
-                "time_left": Constants.hunting_time,
+                "time_left": self.player.hunting_time_left(),
                 }
 
 class Welcome(Page):
@@ -44,8 +46,6 @@ class Welcome(Page):
                 'ub': c(2),
                 # "time_limit": int(Constants.round_1_seconds / 60),
                }
-    def before_next_page(self):
-        self.player.hunting_start_time = timezone.now()
 
 
 
@@ -63,17 +63,21 @@ class PreselectionQuestionnaire(Page):
                 ]
 
 class ThankYou(Page):
-    pass
+    def before_next_page(self):
+        self.player.priming_start_time= timezone.now()
+
+
 class Priming(Page):
     def is_displayed(self):
-        return preselection(self.player)
+        return preselection(self.player) and self.player.priming_time_left()
 
     def vars_for_template(self):
+        self.player.priming_start_time = timezone.now()
         if self.player.treatment:
             tr_text=["$2.500","$230","$2.800"]
         else:
             tr_text=["$150","$15","$180"]
-        return {'tr_text': tr_text, "time_left": Constants.priming_time,}
+        return {'tr_text': tr_text, "time_left": self.player.priming_time_left(),}
 
 
 class Instructions1(Page):
@@ -86,7 +90,7 @@ class Instructions2(Page):
 
 class Waiting1(Page):
     template_name = 'stag_hunt/WaitingPage.html'
-    timeout_seconds = Constants.waiting_partner
+    timeout_seconds = Constants.waiting_partner_time
     text="Please wait until the other MTurker has joined the hunting task…."
     def vars_for_template(self):
         return {'text': self.text}
@@ -97,6 +101,9 @@ class Waiting1(Page):
 class PartnerJoined(Page):
     def is_displayed(self):
         return preselection(self.player)
+    def before_next_page(self):
+        self.player.hunting_start_time= timezone.now()
+
 class QuestionnaireAnnouncement(Page):
     def is_displayed(self):
         return preselection(self.player)

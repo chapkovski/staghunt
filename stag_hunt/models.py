@@ -54,7 +54,8 @@ class Constants(BaseConstants):
     name_in_url = 'stag_hunt'
     players_per_group = None
     num_rounds = 1
-    waiting_partner=2
+    waiting_partner_time=2 #how long waiting partner page will be shown
+    frequency=3000
 
 #first is the payoff of a player, second - a payoff of another
     stag_stag_amount = c(3)
@@ -84,12 +85,19 @@ class Player(BasePlayer):
 
     #########experimenting with own timer
     hunting_start_time = models.DateTimeField()
-
+    priming_start_time = models.DateTimeField()
     def hunting_time_left(self):
         start = self.hunting_start_time
         now = timezone.now()
-        time_left = Constants.round_1_seconds - (now - start).seconds
+        time_left = Constants.hunting_time - (now - start).seconds
         return time_left if time_left > 0 else 0
+    def priming_time_left(self):
+        start = self.priming_start_time
+        now = timezone.now()
+        time_left = Constants.priming_time - (now - start).seconds
+        return time_left if time_left > 0 else 0
+
+
     #end of exper with timer
 
     treatment=models.BooleanField()
