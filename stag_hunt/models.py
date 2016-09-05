@@ -54,7 +54,7 @@ class Constants(BaseConstants):
     name_in_url = 'stag_hunt'
     players_per_group = None
     num_rounds = 1
-
+    waiting_partner=2
 
 #first is the payoff of a player, second - a payoff of another
     stag_stag_amount = c(3)

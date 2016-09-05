@@ -82,9 +82,18 @@ class Instructions1(Page):
 class Instructions2(Page):
     def is_displayed(self):
         return preselection(self.player)
+
+
 class Waiting1(Page):
+    template_name = 'stag_hunt/WaitingPage.html'
+    timeout_seconds = Constants.waiting_partner
+    text="Please wait until the other MTurker has joined the hunting task…."
+    def vars_for_template(self):
+        return {'text': self.text}
     def is_displayed(self):
         return preselection(self.player)
+
+
 class PartnerJoined(Page):
     def is_displayed(self):
         return preselection(self.player)
@@ -133,22 +142,17 @@ class FinalPage(Page):
                 ]
 
 
-page_sequence = [
+page_sequence = [Welcome,
+                PreselectionQuestionnaire,
+                ThankYou,
                 Priming,
-                Welcome,
-                  Hunting,
-                 QuestionnaireAnnouncement,
-
-            PreselectionQuestionnaire,
-            ThankYou,
-            Priming,
-            Instructions1,
-            Instructions2,
-            Waiting1,
-            PartnerJoined,
-            Hunting,
-            QuestionnaireAnnouncement,
-            PostQuestionnaire1,
-            PostQuestionnaire2,
-            FinalPage,
+                Instructions1,
+                Instructions2,
+                Waiting1,
+                PartnerJoined,
+                Hunting,
+                QuestionnaireAnnouncement,
+                PostQuestionnaire1,
+                PostQuestionnaire2,
+                FinalPage,
             ]
