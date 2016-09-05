@@ -11,7 +11,7 @@ from otree.common import Currency as c, currency_range
 import django.forms.extras.widgets
 
 #to delete block below
-# from jsonfield import JSONField
+from jsonfield import JSONField
 from otree.db import models
 import otree.models
 import otree.constants
