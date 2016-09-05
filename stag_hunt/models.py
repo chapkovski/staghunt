@@ -49,13 +49,13 @@ from otree.db import models
 
 class Constants(BaseConstants):
     #dont' forget to delete below
-    priming_time, hunting_time = 15,15
+    priming_time, hunting_time = 15,30
     #dont forget to delete above
     name_in_url = 'stag_hunt'
     players_per_group = None
     num_rounds = 1
     waiting_partner_time=2 #how long waiting partner page will be shown
-    frequency=3000
+    frequency=5000
 
 #first is the payoff of a player, second - a payoff of another
     stag_stag_amount = c(3)
