@@ -72,7 +72,7 @@ class Priming(Page):
         return preselection(self.player) and self.player.priming_time_left()
 
     def vars_for_template(self):
-        self.player.priming_start_time = timezone.now()
+        # self.player.priming_start_time = timezone.now()
         if self.player.treatment:
             tr_text=["$2.500","$230","$2.800"]
         else:
